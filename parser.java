@@ -1,50 +1,26 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
-import japa.parser.JavaParser;
-import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.body.BodyDeclaration;
-import japa.parser.ast.body.ClassOrInterfaceDeclaration;
-import japa.parser.ast.body.ConstructorDeclaration;
-import japa.parser.ast.body.FieldDeclaration;
-import japa.parser.ast.body.MethodDeclaration;
-import japa.parser.ast.body.Parameter;
-import japa.parser.ast.body.TypeDeclaration;
-import japa.parser.ast.type.ClassOrInterfaceType;
-import japa.parser.ast.type.PrimitiveType;
-import japa.parser.ast.type.ReferenceType;
-import japa.parser.ast.type.Type;
+import java.io.*;
+import java.util.*;
+import java.lang.*;
 
+import com.github.javaparser.*;
+import com.github.javaparser.ast.*;
+import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
-public class Parser {
+public class Parser{
+    final String inPath;
+    final String outPath;
+    HashMap<String, Boolean> map;
+    HashMap<String, String> mapClassConn;
+    String yumlCode;
+    ArrayList<CompilationUnit> cuArray;
 
-    private HashMap<String, CompilationUnit> compilationsUnits;
-    private PackageStructure packageStructure;
-
-    public Parser() {
-        compilationsUnits = new HashMap<String, CompilationUnit>();
-    }
-
-    public PackageStructure parsePackage(File folder) {
-        packageStructure = new PackageStructure();
-        packageStructure.setPackageName(folder.getName());
-        List<File> javaFiles = FileHandler.getAllFilesInDirectory(folder);
-        for (File file : javaFiles) {
-            parseFile(file);
-        }
-        checkSetterGetters();
-        removeImplementedMethods(compilationsUnits, javaFiles);
-        for (File file : javaFiles) {
-            createEdges(compilationsUnits.get(file.getName()));
-        }
-
-        return packageStructure;
-    }
-
+    Parser(String inPath, String outFile) {
+        this.inPath = inPath;
+        this.outPath = inPath + "\\" + outFile + ".png";
+        map = new HashMap<String, Boolean>();
+        mapClassConn = new HashMap<String, String>();
+        yumlCode = "";
     }
