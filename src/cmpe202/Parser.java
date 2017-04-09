@@ -12,6 +12,7 @@ import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -52,6 +53,36 @@ public class Parser {
 		catch ( Exception e) {
 	           new RuntimeException(e);
 	       }
+		
+		try {
+	           new VoidVisitorAdapter<Object>() {
+	               @Override
+	               public void visit(FieldDeclaration n, Object arg) {
+	                   super.visit(n, arg);
+	                   System.out.println(" * " + n.toString());
+	               }
+	           }.visit(cu, null);
+	           System.out.println(); // empty line
+	       } 
+		catch ( Exception e) {
+	           new RuntimeException(e);
+	       }
+		
+		try {
+	           new VoidVisitorAdapter<Object>() {
+	               @Override
+	               public void visit(ConstructorDeclaration n, Object arg) {
+	                   super.visit(n, arg);
+	                   System.out.println(" * " + n.toString());
+	               }
+	           }.visit(cu, null);
+	           System.out.println(); // empty line
+	       } 
+		catch ( Exception e) {
+	           new RuntimeException(e);
+	       }
+	
+		
 	   
 	}
 
