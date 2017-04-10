@@ -8,8 +8,26 @@ public class Classcode {
 	private ArrayList<Attribute> classAttribute;
 	private ArrayList<Method> classMethod;
 	private String classModifier;
+	private String extendsclass;
+	private ArrayList<String> implementsclass;
 	
 	
+	public String getExtendsclass() {
+		return extendsclass;
+	}
+
+	public void setExtendsclass(String extendsclass) {
+		this.extendsclass = extendsclass;
+	}
+
+	public ArrayList<String> getImplementsclass() {
+		return implementsclass;
+	}
+
+	public void setImplementsclass(ArrayList<String> implementsclass) {
+		this.implementsclass = implementsclass;
+	}
+
 	public String getClassName() {
 		return className;
 	}
@@ -33,24 +51,28 @@ public class Classcode {
 		this.classAttribute.add(classAttribute);
 	}
 	
-		public void setClassAttribute() {
-		
-	
-	}
-	
-	
+			
 	public ArrayList<Method> getClassMethod() {
 		return classMethod;
 	}
+	
+	
 	public void setClassMethod(ArrayList<Method> classMethod) {
 		this.classMethod = classMethod;
 	}
+	
+	public void setClassMethod(Method classMethod) {
+		this.classMethod.add(classMethod);
+	}
+	
+		
 	public String getClassModifier() {
 		return classModifier;
 	}
+		
 	public void setClassModifier(String classModifier) {
 		this.classModifier = classModifier;
 	}
-	
+			
 
 }
