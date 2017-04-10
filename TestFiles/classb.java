@@ -1,4 +1,4 @@
-class ClassA {
+class ClassA extends Police {
 
     private String message ; // public attribute via setters and getters
     private String bark ;

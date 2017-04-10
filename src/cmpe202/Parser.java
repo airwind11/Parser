@@ -11,10 +11,13 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import cmpe202.ParserEngine;
@@ -24,7 +27,12 @@ public class Parser {
 	public static void main(String[] args) throws FileNotFoundException {
 	
 		CompilationUnit cu = JavaParser.parse(new FileInputStream("C:/Parser/TestFiles/classb.java"));
-		System.out.println(cu.toString());
+		//System.out.println(cu.toString());
+		
+		
+		
+	
+		
 		
 		try {
 	           new VoidVisitorAdapter<Object>() {
