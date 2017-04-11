@@ -30,64 +30,96 @@ public class ParserEngine  {
                public void visit(ClassOrInterfaceDeclaration n, Object arg) {
         		if(n.isInterface())
         			{
+        			Interfacecode interfacefound = new Interfacecode();
+        			interfacefound.setInterfaceName(n.getNameAsString());
+        			System.out.println(" * " + interfacefound.getInterfaceName());
         			
-        			
+        			List<ClassOrInterfaceType> extendList = n.getExtendedTypes();
+       	         
+       	         for (ClassOrInterfaceType d : extendList)
+       	        	interfacefound.setextendsInterface(d.getNameAsString());;
+       	        
+       	         for (String m : interfacefound.getextendsInterface())
+       	        	 System.out.println(" * " + m);
+       	         
+       	  	((Output) arg).setAllinterfaces(interfacefound);
+       	 
+   		 List<Interfacecode> tAllcla = ((Output) arg).getAllinterfaces();
+   			 
+   			 for (Interfacecode e : tAllcla) 
+	         	{
+	        	
+	        	 System.out.println(" * " + e.getInterfaceName());
+	            } 
+        			       	
         			}
         		else
         		{
         			Classcode classfound = new Classcode();
         			classfound.setClassName(n.getNameAsString());
+        			 System.out.println(" * " + classfound.getClassName());
         			classfound.setClassModifier(n.getModifiers().toString());
-        			classfound.setExtendsclass(n.getExtendedTypes().toString());
+        			System.out.println(" * " + classfound.getClassModifier());
+        			
         			
         			List<ClassOrInterfaceType> extendList = n.getExtendedTypes();
         	        
         			for (ClassOrInterfaceType c : extendList) 
-        				{
-        	          // classfound.setExtendsclass(c.getName().toString());
-        	             System.out.println(" * " + c.getName());
-        	            }
+        			   classfound.setExtendsclass(c.getNameAsString());
+        	             
+        			System.out.println(" * " + classfound.getExtendsclass());
         	            
         	         List<ClassOrInterfaceType> implementList = n.getImplementedTypes();
         	         
-        	         for (ClassOrInterfaceType c : implementList) 
-        	         	{
-        	        	 //classfound.setImplementsclass(c.getName().toString());;
-        	        	 System.out.println(" * " + c.getName());
-        	            } 
-        	            
-        			System.out.println(" * " + n.getModifiers());
-        			//((Output) arg).setAllclasses(classfound);
-        			         			
+        	         for (ClassOrInterfaceType d : implementList)
+        	          classfound.setImplementsclass(d.getNameAsString()); 
+        	         
+        	         for (String m : classfound.getImplementsclass())
+        	        	 System.out.println(" * " + m);
+           	          
+        	        
+        			((Output) arg).setAllclasses(classfound);
+        			
+        		 List<Classcode> tAllcla = ((Output) arg).getAllclasses();
+        			 
+        			 for (Classcode e : tAllcla) 
+     	         	{
+     	        	
+     	        	 System.out.println(" * " + e.getClassName());
+     	            } 
+        			        		        			         			
         		}
-        		
-        		 super.visit(n, arg);
-            
-               }
+        		       		 
+        		super.visit(n, arg);
+               
+        	}
                    
            @Override
                 public void visit(MethodDeclaration n, Object arg) {
-                       super.visit(n, arg);
-                       System.out.println(" * " + n.getName());   
+        	   System.out.println(" * " + n.getName());        
+        	   super.visit(n, arg);
+                          
            }
             
                        
             @Override
                  public void visit(FieldDeclaration n, Object arg) {
-                  super.visit(n, arg);
-                  System.out.println(" * " + n.toString());
+            	System.out.println(" * " + n.toString());  
+            	super.visit(n, arg);
+                  
             }
              @Override
                   public void visit(ConstructorDeclaration n, Object arg) {
-                  super.visit(n, arg);
-                  System.out.println(" * " + n.toString());
+                    System.out.println(" * " + n.toString());
+                    super.visit(n, arg);
              	}
            }.visit(cu, listofclassesandinterfaces);
            
-           System.out.println(); // empty line
-       } 
+          System.out.println(); // empty line
+      } 
 	catch ( Exception e) {
-           new RuntimeException(e);
-       }
+         new RuntimeException(e);
+      }
+       
 	}
 }

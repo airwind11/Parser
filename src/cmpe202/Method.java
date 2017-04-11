@@ -6,7 +6,7 @@ public class Method {
 	
 	private String methodName;
 	private String returnType;
-	private HashMap<String,String> methodSignature;
+	private HashMap<String,String> methodSignature = new HashMap();
 	private String methodModifier;
 	private Boolean staticYN = false;
 	

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Classcode {
 	
 	private String className;
-	private ArrayList<Attribute> classAttribute;
-	private ArrayList<Method> classMethod;
+	private ArrayList<Attribute> classAttribute = new ArrayList();
+	private ArrayList<Method> classMethod = new ArrayList();
 	private String classModifier;
 	private String extendsclass;
-	private ArrayList<String> implementsclass;
+	private ArrayList<String> implementsclass = new ArrayList();
 	
 	
 	public String getExtendsclass() {

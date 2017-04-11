@@ -1,12 +1,8 @@
 import java.util.Collection;
 
-public  class A extends B implements ABC , POLI {
+public  interface A  extends ABC , POLI {
 
-    public A()
-    {}
-
-
-    private int x;
+     private int x;
 
     private int[] y;
 
