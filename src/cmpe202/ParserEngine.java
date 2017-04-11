@@ -14,6 +14,7 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
@@ -27,7 +28,7 @@ public class ParserEngine  {
 			
 	public static void readfile(CompilationUnit cu,Output listofclassesandinterfaces)
 	{	
-		try {
+		//try {
            new VoidVisitorAdapter<Object>() {
            
         	@Override
@@ -112,16 +113,6 @@ public class ParserEngine  {
             {
             	Attribute attributefound = new Attribute();
             	attributefound.setAttributeType(n.getElementType().toString());
-            	//System.out.println(n.getChildNodes());
-            	System.out.println(n.getElementType());
-            	System.out.println(n.getElementType().getChildNodes());
-            	//System.out.println(n.getElementType().getMetaModel());
-            	for(Node w:n.getElementType().getChildNodes())
-            	{
-            		//System.out.println(w);
-            		//System.out.println(w.getChildNodes());
-            		//System.out.println(w.toString());
-            	}
             	//System.out.println(attributefound.getAttributeType());
             	EnumSet<Modifier> modifierList = n.getModifiers();
         		attributefound.setAttributeModifier(modifierList);
@@ -131,6 +122,72 @@ public class ParserEngine  {
         			//System.out.println(g.asString());
             		
             	 }
+            	
+            	if((n.getElementType().getMetaModel().toString()=="ClassOrInterfaceType") && (!attributefound.getAttributeType().equals("String")))
+            	{
+            		attributefound.setPrimitiveType(false);
+            	}
+            	
+            	//System.out.println(attributefound.getPrimitiveType());
+            	
+            	if(!attributefound.getPrimitiveType())
+            	{
+            		
+            		List<Node> po = n.getElementType().getChildNodes();
+            		
+            		if(po.size()>1)
+            		{
+            			//System.out.println(po.get(1));
+            			attributefound.setAssociationwithclassorinterface(po.get(1).toString());
+            			attributefound.setMultiplicity("multiple");
+            		}
+            		else
+            		{
+            		attributefound.setAssociationwithclassorinterface(po.get(0).toString());
+            		}
+            		
+            		System.out.println(attributefound.getAssociationwithclassorinterface());
+            		System.out.println(attributefound.getMultiplicity());
+            		
+            	/*	
+            	 for(Node w:n.getChildNodes())
+            	{
+            		 if(w.getChildNodes()!=null)
+            		 {
+            			 
+            			 
+            		 }
+            		 //System.out.println(w);
+            		 System.out.println(n.getElementType().getChildNodes());
+            		System.out.println(w.getChildNodes());
+            		//System.out.println(w.get);
+            	     //System.out.println(w.getMetaModel());
+            		
+            	}
+            	 */
+            		
+            		
+            	/*	
+            	 for(Node w:n.getElementType().getChildNodes())
+             	{
+             		 if(w.getChildNodes()!=null)
+             		 {
+             			 
+             			 
+             		 }
+             		 //System.out.println(w);
+             		 //System.out.println(n.getElementType().getChildNodes());
+             		//System.out.println(w.getChildNodes());
+             		//System.out.println(w.get);
+             	     //System.out.println(w.getMetaModel());
+             		
+             	}
+             	*/
+             	 
+            	 
+            	}
+            	
+            	
         		 
         		             		 
         		 for (VariableDeclarator v : n.getVariables())
@@ -174,10 +231,10 @@ public class ParserEngine  {
            }.visit(cu, listofclassesandinterfaces);
            
           System.out.println(); // empty line
-      } 
-	catch ( Exception e) {
-         new RuntimeException(e);
-      }
+     // } 
+	//catch ( Exception e) {
+    //     new RuntimeException(e);
+    //  }
        
 	}
 }

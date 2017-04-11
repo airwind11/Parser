@@ -6,11 +6,13 @@ public  class A  extends ABC  {
 
      private static int x;
 
+     private String po;
+
     private int[] y;
 
-    private ArrayList<B> b;
+    private Collection<B> b;
 
-    private C c;
+    private Cp c;
 
     private List<D> d;
 

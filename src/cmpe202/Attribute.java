@@ -9,13 +9,27 @@ public class Attribute {
 
 	private String attributeName;
 	private String attributeType;
+	private String associationwithclassorinterface;
 	private EnumSet<Modifier> attributeModifier;
+	private Boolean primitiveType = true;
 	private Boolean staticYN = false;
 	private Boolean ordered = false;
-	private int multiplicity;
+	private String multiplicity = "Single";
 	
 	
 	
+	public String getAssociationwithclassorinterface() {
+		return associationwithclassorinterface;
+	}
+	public void setAssociationwithclassorinterface(String associationwithclassorinterface) {
+		this.associationwithclassorinterface = associationwithclassorinterface;
+	}
+	public Boolean getPrimitiveType() {
+		return primitiveType;
+	}
+	public void setPrimitiveType(Boolean primitiveType) {
+		this.primitiveType = primitiveType;
+	}
 	public String getAttributeName() {
 		return attributeName;
 	}
@@ -36,10 +50,10 @@ public class Attribute {
 	public void setOrdered(Boolean ordered) {
 		this.ordered = ordered;
 	}
-	public int getMultiplicity() {
+	public String getMultiplicity() {
 		return multiplicity;
 	}
-	public void setMultiplicity(int multiplicity) {
+	public void setMultiplicity(String multiplicity) {
 		this.multiplicity = multiplicity;
 	}
 	public EnumSet<Modifier> getAttributeModifier() {
