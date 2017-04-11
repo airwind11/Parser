@@ -3,18 +3,22 @@ package cmpe202;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.management.relation.RelationType;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
@@ -32,7 +36,7 @@ public class ParserEngine  {
         			{
         			Interfacecode interfacefound = new Interfacecode();
         			interfacefound.setInterfaceName(n.getNameAsString());
-        			System.out.println(" * " + interfacefound.getInterfaceName());
+        			//System.out.println(" * " + interfacefound.getInterfaceName());
         			
         			List<ClassOrInterfaceType> extendList = n.getExtendedTypes();
        	         
@@ -40,26 +44,29 @@ public class ParserEngine  {
        	        	interfacefound.setextendsInterface(d.getNameAsString());;
        	        
        	         for (String m : interfacefound.getextendsInterface())
-       	        	 System.out.println(" * " + m);
+       	        	 //System.out.println(" * " + m);
        	         
-       	  	((Output) arg).setAllinterfaces(interfacefound);
+       	         ((Output) arg).setAllinterfaces(interfacefound);
        	 
-   		 List<Interfacecode> tAllcla = ((Output) arg).getAllinterfaces();
+       	  		List<Interfacecode> tAllcla = ((Output) arg).getAllinterfaces();
    			 
-   			 for (Interfacecode e : tAllcla) 
+       	  		for (Interfacecode e : tAllcla) 
 	         	{
-	        	
-	        	 System.out.println(" * " + e.getInterfaceName());
+	        	 //System.out.println(" * " + e.getInterfaceName());
 	            } 
-        			       	
-        			}
+       	  		
+       	  		
+   			    super.visit(n, interfacefound);
+        		}
+        		
         		else
+        			
         		{
         			Classcode classfound = new Classcode();
         			classfound.setClassName(n.getNameAsString());
-        			 System.out.println(" * " + classfound.getClassName());
+        			 //System.out.println(" * " + classfound.getClassName());
         			classfound.setClassModifier(n.getModifiers().toString());
-        			System.out.println(" * " + classfound.getClassModifier());
+        			//System.out.println(" * " + classfound.getClassModifier());
         			
         			
         			List<ClassOrInterfaceType> extendList = n.getExtendedTypes();
@@ -67,7 +74,7 @@ public class ParserEngine  {
         			for (ClassOrInterfaceType c : extendList) 
         			   classfound.setExtendsclass(c.getNameAsString());
         	             
-        			System.out.println(" * " + classfound.getExtendsclass());
+        			//System.out.println(" * " + classfound.getExtendsclass());
         	            
         	         List<ClassOrInterfaceType> implementList = n.getImplementedTypes();
         	         
@@ -75,7 +82,7 @@ public class ParserEngine  {
         	          classfound.setImplementsclass(d.getNameAsString()); 
         	         
         	         for (String m : classfound.getImplementsclass())
-        	        	 System.out.println(" * " + m);
+        	        	 //System.out.println(" * " + m);
            	          
         	        
         			((Output) arg).setAllclasses(classfound);
@@ -85,33 +92,84 @@ public class ParserEngine  {
         			 for (Classcode e : tAllcla) 
      	         	{
      	        	
-     	        	 System.out.println(" * " + e.getClassName());
+     	        	 //System.out.println(" * " + e.getClassName());
      	            } 
-        			        		        			         			
+        			 super.visit(n, classfound);     		        			         			
         		}
-        		       		 
-        		super.visit(n, arg);
-               
         	}
                    
            @Override
-                public void visit(MethodDeclaration n, Object arg) {
+                public void visit(MethodDeclaration n, Object arg) 
+           {
+        	          	   
         	   System.out.println(" * " + n.getName());        
         	   super.visit(n, arg);
-                          
            }
             
                        
             @Override
-                 public void visit(FieldDeclaration n, Object arg) {
-            	System.out.println(" * " + n.toString());  
+                 public void visit(FieldDeclaration n, Object arg) 
+            {
+            	Attribute attributefound = new Attribute();
+            	attributefound.setAttributeType(n.getElementType().toString());
+            	//System.out.println(n.getChildNodes());
+            	System.out.println(n.getElementType());
+            	System.out.println(n.getElementType().getChildNodes());
+            	//System.out.println(n.getElementType().getMetaModel());
+            	for(Node w:n.getElementType().getChildNodes())
+            	{
+            		//System.out.println(w);
+            		//System.out.println(w.getChildNodes());
+            		//System.out.println(w.toString());
+            	}
+            	//System.out.println(attributefound.getAttributeType());
+            	EnumSet<Modifier> modifierList = n.getModifiers();
+        		attributefound.setAttributeModifier(modifierList);
+        		 
+        		 for (Modifier g : attributefound.getAttributeModifier())
+            	 {
+        			//System.out.println(g.asString());
+            		
+            	 }
+        		 
+        		             		 
+        		 for (VariableDeclarator v : n.getVariables())
+            	 {
+        			 attributefound.setAttributeName(v.getNameAsString());
+        			
+        			// System.out.println(attributefound.getAttributeName());
+            	 }
+        		 
+            	 if(arg instanceof Classcode)
+          	   	{            		 
+            		((Classcode) arg).setClassAttribute(attributefound);
+            		
+            		for(Attribute y: ((Classcode) arg).getClassAttribute())
+					{
+            			//System.out.println(y.getAttributeName());
+					}
+            		          	
+          		   
+          	   }
+          	   
+          	   else
+          	   {
+          		 ((Interfacecode) arg).setInterfaceAttribute(attributefound);
+          		 
+          		for(Attribute y: ((Interfacecode) arg).getInterfaceAttribute())
+				{
+        			System.out.println(y.getAttributeName());
+				}
+        		
+          	   }
+       
             	super.visit(n, arg);
-                  
             }
+            
              @Override
                   public void visit(ConstructorDeclaration n, Object arg) {
-                    System.out.println(" * " + n.toString());
-                    super.visit(n, arg);
+                   System.out.println(" # " + n.toString());
+                   super.visit(n, arg);
              	}
            }.visit(cu, listofclassesandinterfaces);
            

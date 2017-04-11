@@ -1,15 +1,17 @@
 import java.util.Collection;
 
-public  interface A  extends ABC , POLI {
+public  class A  extends ABC  {
 
-     private int x;
+
+
+     private static int x;
 
     private int[] y;
 
-    private Collection<B> b;
+    private ArrayList<B> b;
 
     private C c;
 
-    private Collection<D> d;
+    private List<D> d;
 
 }

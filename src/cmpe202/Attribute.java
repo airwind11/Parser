@@ -1,12 +1,15 @@
 package cmpe202;
 
+import java.util.EnumSet;
 import java.util.HashMap;
+
+import com.github.javaparser.ast.Modifier;
 
 public class Attribute {
 
 	private String attributeName;
 	private String attributeType;
-	private String attributeModifier;
+	private EnumSet<Modifier> attributeModifier;
 	private Boolean staticYN = false;
 	private Boolean ordered = false;
 	private int multiplicity;
@@ -39,10 +42,10 @@ public class Attribute {
 	public void setMultiplicity(int multiplicity) {
 		this.multiplicity = multiplicity;
 	}
-	public String getAttributeModifier() {
+	public EnumSet<Modifier> getAttributeModifier() {
 		return attributeModifier;
 	}
-	public void setAttributeModifier(String attributeModifier) {
+	public void setAttributeModifier(EnumSet<Modifier> attributeModifier) {
 		this.attributeModifier = attributeModifier;
 	}
 	public Boolean getStaticYN() {

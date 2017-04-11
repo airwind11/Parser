@@ -27,12 +27,20 @@ public class Interfacecode {
 		this.interfaceAttribute = interfaceAttribute;
 	}
 	
+	public void setInterfaceAttribute(Attribute interfaceAttribute) {
+		this.interfaceAttribute.add(interfaceAttribute);
+	}
+	
 	public ArrayList<Method> getInterfaceMethod() {
 		return interfaceMethod;
 	}
 	
 	public void setInterfaceMethod(ArrayList<Method> interfaceMethod) {
 		this.interfaceMethod = interfaceMethod;
+	}
+	
+	public void setInterfaceMethod(Method interfaceMethod) {
+		this.interfaceMethod.add(interfaceMethod);
 	}
 	
 	public ArrayList<String> getextendsInterface() {
