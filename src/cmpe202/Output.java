@@ -14,6 +14,11 @@ public class Output {
 	public void setAllclasses(ArrayList<Classcode> allclasses) {
 		this.allclasses = allclasses;
 	}
+	
+	public void setAllclasses(Classcode classfound) {
+		this.allclasses.add(classfound);
+	}
+	
 	public ArrayList<Interfacecode> getAllinterfaces() {
 		return allinterfaces;
 	}

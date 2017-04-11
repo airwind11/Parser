@@ -25,74 +25,12 @@ import cmpe202.ParserEngine;
 public class Parser {
 
 	public static void main(String[] args) throws FileNotFoundException {
+		
+		CompilationUnit cu = JavaParser.parse(new FileInputStream("C:/Parser/TestFiles/A.java"));
+		Output listofclassesandinterfaces = new Output() ;
+		ParserEngine.readfile(cu,listofclassesandinterfaces);
+		
+		
 	
-		CompilationUnit cu = JavaParser.parse(new FileInputStream("C:/Parser/TestFiles/classb.java"));
-		//System.out.println(cu.toString());
-		
-		
-		
-	
-		
-		
-		try {
-	           new VoidVisitorAdapter<Object>() {
-	               @Override
-	               public void visit(ClassOrInterfaceDeclaration n, Object arg) {
-	                   super.visit(n, arg);
-	                   System.out.println(" * " + n.getName());
-	               }
-	           }.visit(cu, null);
-	           System.out.println(); // empty line
-	       } 
-		catch ( Exception e) {
-	           new RuntimeException(e);
-	       }
-		
-		try {
-	           new VoidVisitorAdapter<Object>() {
-	               @Override
-	               public void visit(MethodDeclaration n, Object arg) {
-	                   super.visit(n, arg);
-	                   System.out.println(" * " + n.getName());
-	               }
-	           }.visit(cu, null);
-	           System.out.println(); // empty line
-	       } 
-		catch ( Exception e) {
-	           new RuntimeException(e);
-	       }
-		
-		try {
-	           new VoidVisitorAdapter<Object>() {
-	               @Override
-	               public void visit(FieldDeclaration n, Object arg) {
-	                   super.visit(n, arg);
-	                   System.out.println(" * " + n.toString());
-	               }
-	           }.visit(cu, null);
-	           System.out.println(); // empty line
-	       } 
-		catch ( Exception e) {
-	           new RuntimeException(e);
-	       }
-		
-		try {
-	           new VoidVisitorAdapter<Object>() {
-	               @Override
-	               public void visit(ConstructorDeclaration n, Object arg) {
-	                   super.visit(n, arg);
-	                   System.out.println(" * " + n.toString());
-	               }
-	           }.visit(cu, null);
-	           System.out.println(); // empty line
-	       } 
-		catch ( Exception e) {
-	           new RuntimeException(e);
-	       }
-	
-		
-	   
 	}
-
-	
 }

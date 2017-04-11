@@ -9,6 +9,8 @@ public class Interfacecode {
 	private ArrayList<Attribute> interfaceAttribute;
 	private ArrayList<Method> interfaceMethod;
 	private ArrayList<String> implementsInterface;
+	
+	
 	public String getInterfaceName() {
 		return interfaceName;
 	}

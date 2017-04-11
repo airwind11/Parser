@@ -27,6 +27,11 @@ public class Classcode {
 	public void setImplementsclass(ArrayList<String> implementsclass) {
 		this.implementsclass = implementsclass;
 	}
+	
+	public void setImplementsclass(String implementsclass) {
+		this.implementsclass.add(implementsclass);
+	}
+
 
 	public String getClassName() {
 		return className;

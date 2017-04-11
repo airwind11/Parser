@@ -1,6 +1,10 @@
 import java.util.Collection;
 
-public class A {
+public  class A extends B implements ABC , POLI {
+
+    public A()
+    {}
+
 
     private int x;
 
