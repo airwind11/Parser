@@ -9,21 +9,22 @@ public class Attribute {
 
 	private String attributeName;
 	private String attributeType;
-	private String associationwithclassorinterface;
 	private EnumSet<Modifier> attributeModifier;
 	private Boolean primitiveType = true;
 	private Boolean staticYN = false;
 	private Boolean ordered = false;
 	private String multiplicity = "Single";
 	
-	
-	
+	//private String associationwithclassorinterface;	
+	/*
 	public String getAssociationwithclassorinterface() {
 		return associationwithclassorinterface;
 	}
 	public void setAssociationwithclassorinterface(String associationwithclassorinterface) {
 		this.associationwithclassorinterface = associationwithclassorinterface;
 	}
+	*/
+	
 	public Boolean getPrimitiveType() {
 		return primitiveType;
 	}

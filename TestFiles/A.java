@@ -12,7 +12,7 @@ public  class A  extends ABC  {
 
     private Collection<B> b;
 
-    private Cp c;
+    private C c;
 
     private List<D> d;
 

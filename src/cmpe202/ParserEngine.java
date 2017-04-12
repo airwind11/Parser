@@ -47,15 +47,9 @@ public class ParserEngine  {
        	         for (String m : interfacefound.getextendsInterface())
        	        	 //System.out.println(" * " + m);
        	         
-       	         ((Output) arg).setAllinterfaces(interfacefound);
+       	         ((Output) arg).setAllinterfaces(n.getNameAsString(),interfacefound);
        	 
-       	  		List<Interfacecode> tAllcla = ((Output) arg).getAllinterfaces();
-   			 
-       	  		for (Interfacecode e : tAllcla) 
-	         	{
-	        	 //System.out.println(" * " + e.getInterfaceName());
-	            } 
-       	  		
+       	  		      	  		
        	  		
    			    super.visit(n, interfacefound);
         		}
@@ -86,15 +80,8 @@ public class ParserEngine  {
         	        	 //System.out.println(" * " + m);
            	          
         	        
-        			((Output) arg).setAllclasses(classfound);
-        			
-        		 List<Classcode> tAllcla = ((Output) arg).getAllclasses();
-        			 
-        			 for (Classcode e : tAllcla) 
-     	         	{
-     	        	
-     	        	 //System.out.println(" * " + e.getClassName());
-     	            } 
+        			((Output) arg).setAllclasses(n.getNameAsString(),classfound);
+        	
         			 super.visit(n, classfound);     		        			         			
         		}
         	}
@@ -102,9 +89,37 @@ public class ParserEngine  {
            @Override
                 public void visit(MethodDeclaration n, Object arg) 
            {
-        	          	   
-        	   System.out.println(" * " + n.getName());        
-        	   super.visit(n, arg);
+        	     Method methodfound = new Method();
+        	     methodfound.setMethodName(n.getName().toString());
+        	     System.out.println(methodfound.getMethodName());
+        	     
+        	     if(methodfound.getMethodName().startsWith("get"))
+        	     {
+        	    	 methodfound.setHasget(true);
+        	    	 methodfound.setShortName(methodfound.getMethodName().substring(3));
+        	    	 //System.out.println(methodfound.getHasget());
+        	    	   }
+        	     else if(methodfound.getMethodName().startsWith("set"))
+        	     {
+        	    	 methodfound.setHasset(true);
+        	    	 methodfound.setShortName(methodfound.getMethodName().substring(3));
+        	    	 //System.out.println(methodfound.getHasset());
+        	     }
+        	     //System.out.println(methodfound.getShortName());
+        	     
+        	     
+        	     methodfound.setMethodModifier(n.getModifiers());
+        	    // System.out.println(methodfound.getMethodModifier());
+        	     
+        	     
+        	     methodfound.setReturnType(n.getDeclarationAsString(false, false, false).split(" ")[0]);
+        	     //System.out.println(methodfound.getReturnType());
+        	     
+        	     //System.out.println();
+ 
+        	    // System.out.println(n);
+        	 //  System.out.println(" * " + n.getName());        
+        	     super.visit(n, arg);
            }
             
                        
@@ -138,43 +153,50 @@ public class ParserEngine  {
             		if(po.size()>1)
             		{
             			//System.out.println(po.get(1));
-            			attributefound.setAssociationwithclassorinterface(po.get(1).toString());
-            			attributefound.setMultiplicity("multiple");
-            		}
+            			if(arg instanceof Classcode)
+            				 	{
+            						((Classcode) arg).setAssociationwithclassorinterface(po.get(1).toString(),"multiple");
+            						System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
+            				 	}
+            					else
+            					{
+            						((Interfacecode) arg).setAssociationwithclassorinterface(po.get(1).toString(),"multiple");
+            						System.out.println(((Interfacecode) arg).getAssociationwithclassorinterface());
+            					}           				
+            				}
+            			
+            		
             		else
             		{
-            		attributefound.setAssociationwithclassorinterface(po.get(0).toString());
+            			if(arg instanceof Classcode)
+       				 		{
+            					((Classcode) arg).setAssociationwithclassorinterface(po.get(0).toString(),"single");
+            					System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
+       				 		}
+            			else
+       						{
+       							((Interfacecode) arg).setAssociationwithclassorinterface(po.get(0).toString(),"single");
+       							System.out.println(((Interfacecode) arg).getAssociationwithclassorinterface());
+       				       	}
             		}
+            	}
             		
-            		System.out.println(attributefound.getAssociationwithclassorinterface());
-            		System.out.println(attributefound.getMultiplicity());
+            		//System.out.println(attributefound.getAssociationwithclassorinterface());
+            		//System.out.println(attributefound.getMultiplicity());
             		
             	/*	
             	 for(Node w:n.getChildNodes())
             	{
-            		 if(w.getChildNodes()!=null)
-            		 {
-            			 
-            			 
-            		 }
-            		 //System.out.println(w);
+            		//System.out.println(w);
             		 System.out.println(n.getElementType().getChildNodes());
             		System.out.println(w.getChildNodes());
             		//System.out.println(w.get);
             	     //System.out.println(w.getMetaModel());
             		
             	}
-            	 */
-            		
-            		
-            	/*	
+           
             	 for(Node w:n.getElementType().getChildNodes())
              	{
-             		 if(w.getChildNodes()!=null)
-             		 {
-             			 
-             			 
-             		 }
              		 //System.out.println(w);
              		 //System.out.println(n.getElementType().getChildNodes());
              		//System.out.println(w.getChildNodes());
@@ -185,17 +207,14 @@ public class ParserEngine  {
              	*/
              	 
             	 
-            	}
             	
             	
-        		 
-        		             		 
         		 for (VariableDeclarator v : n.getVariables())
-            	 {
+            	 	{
         			 attributefound.setAttributeName(v.getNameAsString());
         			
-        			// System.out.println(attributefound.getAttributeName());
-            	 }
+        			//System.out.println(attributefound.getAttributeName());
+            	 	}
         		 
             	 if(arg instanceof Classcode)
           	   	{            		 
@@ -205,18 +224,17 @@ public class ParserEngine  {
 					{
             			//System.out.println(y.getAttributeName());
 					}
-            		          	
-          		   
+            		
           	   }
           	   
           	   else
           	   {
           		 ((Interfacecode) arg).setInterfaceAttribute(attributefound);
           		 
-          		for(Attribute y: ((Interfacecode) arg).getInterfaceAttribute())
-				{
-        			System.out.println(y.getAttributeName());
-				}
+          		 	for(Attribute y: ((Interfacecode) arg).getInterfaceAttribute())
+          		 			{
+          		 				//System.out.println(y.getAttributeName());
+          		 			}
         		
           	   }
        

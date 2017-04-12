@@ -4,6 +4,7 @@ class ClassA extends Police {
     private String bark ;
     protected String foo ;
     protected String bar ;
+    private Collection<B> b;
     String test ; // package scope
 
     public String getMessage() {
@@ -14,7 +15,7 @@ class ClassA extends Police {
         this.message = msg ;
     }
 
-    public void testMethod() {
+    public static void  testMethod() {
         // do test...
     }
 }

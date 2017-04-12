@@ -26,7 +26,7 @@ public class Parser {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		CompilationUnit cu = JavaParser.parse(new FileInputStream("C:/Parser/TestFiles/A.java"));
+		CompilationUnit cu = JavaParser.parse(new FileInputStream("C:/Parser/TestFiles/classb.java"));
 		Output listofclassesandinterfaces = new Output() ;
 		ParserEngine.readfile(cu,listofclassesandinterfaces);
 		

@@ -1,15 +1,48 @@
 package cmpe202;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Interfacecode {
 	
 	
 	private String interfaceName;
+	private HashMap<String,String> associationwithclassorinterface = new HashMap();
 	private ArrayList<Attribute> interfaceAttribute = new ArrayList();
+	private ArrayList<String> dependancy = new ArrayList() ;
 	private ArrayList<Method> interfaceMethod = new ArrayList();
 	private ArrayList<String> extendsInterface = new ArrayList();
 	
+	
+
+
+	public ArrayList<String> getDependancy() {
+		return dependancy;
+	}
+
+	public void setDependancy(ArrayList<String> dependancy) {
+		this.dependancy = dependancy;
+	}
+
+	public HashMap<String, String> getAssociationwithclassorinterface() {
+		return associationwithclassorinterface;
+	}
+
+	public void setAssociationwithclassorinterface(HashMap<String, String> associationwithclassorinterface) {
+		this.associationwithclassorinterface = associationwithclassorinterface;
+	}
+	
+	public void setAssociationwithclassorinterface(String association,String multiplicity) {
+		this.associationwithclassorinterface.put(association, multiplicity);
+	}
+
+	public ArrayList<String> getExtendsInterface() {
+		return extendsInterface;
+	}
+
+	public void setExtendsInterface(ArrayList<String> extendsInterface) {
+		this.extendsInterface = extendsInterface;
+	}
 	
 	public String getInterfaceName() {
 		return interfaceName;

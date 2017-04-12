@@ -1,36 +1,38 @@
 package cmpe202;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Output {
 	
-	private ArrayList<Classcode> allclasses = new ArrayList();
-	private ArrayList<Interfacecode> allinterfaces = new ArrayList();
+	private HashMap<String,Classcode> allclasses = new HashMap();
+	private HashMap<String,Interfacecode> allinterfaces = new HashMap();
 	
-	public ArrayList<Classcode> getAllclasses() {
+	
+	
+	public HashMap<String,Classcode> getAllclasses() {
 		return allclasses;
 	}
 	
 	
-	public void setAllclasses(ArrayList<Classcode> allclasses) {
+	public void setAllclasses(HashMap<String,Classcode> allclasses) {
 		this.allclasses = allclasses;
 	}
 	
-	public void setAllclasses(Classcode classfound) {
-		this.allclasses.add(classfound);
+	public void setAllclasses(String className,Classcode classfound) {
+		this.allclasses.put(className, classfound);
 	}
 	
-	public ArrayList<Interfacecode> getAllinterfaces() {
+	public HashMap<String,Interfacecode> getAllinterfaces() {
 		return allinterfaces;
 	}
 	
-	public void setAllinterfaces(ArrayList<Interfacecode> allinterfaces) {
+	public void setAllinterfaces(HashMap<String,Interfacecode> allinterfaces) {
 		this.allinterfaces = allinterfaces;
 	}
 	
-	public void setAllinterfaces(Interfacecode interfacefound) {
-		this.allinterfaces.add(interfacefound);
+	public void setAllinterfaces(String interfacename,Interfacecode interfacefound) {
+		this.allinterfaces.put(interfacename, interfacefound);
 	}
-	
 
 }

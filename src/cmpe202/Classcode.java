@@ -1,16 +1,36 @@
 package cmpe202;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Classcode {
 	
 	private String className;
 	private ArrayList<Attribute> classAttribute = new ArrayList();
 	private ArrayList<Method> classMethod = new ArrayList();
+	private HashMap<String,String> associationwithclassorinterface = new HashMap();
+	
 	private String classModifier;
 	private String extendsclass;
 	private ArrayList<String> implementsclass = new ArrayList();
+
 	
+	public HashMap<String,String> getAssociationwithclassorinterface() {
+		return associationwithclassorinterface;
+	}
+
+	public void setAssociationwithclassorinterface(HashMap<String,String> associationwithclassorinterface) {
+		this.associationwithclassorinterface = associationwithclassorinterface;
+	}
+	
+	public void setAssociationwithclassorinterface(String association,String multiplicity) {
+		this.associationwithclassorinterface.put(association, multiplicity);
+	}
+	
+	public void lookforgetterSetter()
+	{
+		
+	}
 	
 	public String getExtendsclass() {
 		return extendsclass;
