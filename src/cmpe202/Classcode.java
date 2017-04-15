@@ -8,6 +8,7 @@ public class Classcode {
 	private String className;
 	private ArrayList<Attribute> classAttribute = new ArrayList();
 	private ArrayList<Method> classMethod = new ArrayList();
+	private ArrayList<Constructor> classConstructor = new ArrayList();
 	private HashMap<String,String> associationwithclassorinterface = new HashMap();
 	private String classModifier;
 	private String extendsclass;
@@ -22,6 +23,20 @@ public class Classcode {
 		this.dependancy = dependancy;
 	}
 	
+	public ArrayList<Constructor> getClassConstructor() {
+		return classConstructor;
+	}
+
+	public void setClassConstructor(ArrayList<Constructor> classConstructor) {
+		this.classConstructor = classConstructor;
+	}
+	
+	public void setClassConstructor(Constructor classConstructor) {
+		this.classConstructor.add(classConstructor);
+	}
+	
+	
+
 	public void setDependancy(String dependancy) {
 		this.dependancy.add(dependancy);
 	}

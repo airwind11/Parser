@@ -7,6 +7,15 @@ class ClassA extends Police {
     private Collection<B> b;
     String test ; // package scope
 
+    public ClassA(String msg , ClassA ferf)
+    {
+
+    }
+    public ClassA(String msgsdhj)
+    {
+
+    }
+
     public String getMessage(String msg , ClassA ferf) {
         return this.message ;
     }

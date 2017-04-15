@@ -131,18 +131,34 @@ public class ParserEngine  {
         	    		 if(arg instanceof Classcode)
         	    		 {
         	    			 ((Classcode) arg).setDependancy(parametersplitinparts[0]);
-        	    			 System.out.println(((Classcode) arg).getDependancy());
-        	    			 ((Classcode) arg).setClassMethod(methodfound);
+        	    			// System.out.println(((Classcode) arg).getDependancy());
+        	    			
         	    		 }
         	    		 else
         	    		 {
         	    			 ((Interfacecode) arg).setDependancy(parametersplitinparts[0]);
-        	    			 System.out.println(((Interfacecode) arg).getDependancy());
-        	    			 ((Interfacecode) arg).setInterfaceMethod(methodfound);
+        	    			 //System.out.println(((Interfacecode) arg).getDependancy());
+        	    			
         	    		 }
         	    	 }
         	    	 for(Pair<String, String> i:methodfound.getMethodSignature())
-        	    	 System.out.println(i.a+"*"+i.b);
+        	    	 {
+        	    	 //System.out.println(i.a+"*"+i.b);
+        	    	 }
+        	     }
+        	     
+        	     if(arg instanceof Classcode)
+	    		 {
+        	    	 ((Classcode) arg).setClassMethod(methodfound);
+	    		 }
+	    		 else
+	    		 {
+	    			 ((Interfacecode) arg).setInterfaceMethod(methodfound);
+	    		 }
+        	     
+        	     for(Method i :((Classcode) arg).getClassMethod() )
+        	     {
+        	    	 System.out.println(i.getMethodName());
         	     }
         	     
         	     
@@ -275,10 +291,53 @@ public class ParserEngine  {
             
              @Override
                   public void visit(ConstructorDeclaration n, Object arg) {
-                   System.out.println(" # " + n.toString());
+            	 	Constructor constfound = new Constructor();
+            	 	constfound.setConstName(n.getNameAsString());
+            	 	System.out.println(constfound.getConstName());
+            	
+            	constfound.setConstModifier(n.getModifiers());
+            	System.out.println(constfound.getConstModifier());
+            	 
+            	
+            	 
+                   //System.out.println(" # " + n.getDeclarationAsString(false, false, false));
+            		
+            			 if(!n.getParameters().isEmpty())
+                	     {
+                	    	 
+                	    	 for (Parameter i : n.getParameters())
+                	    	
+                	    	 {
+                	    		 String[] parametersplitinparts = i.toString().split(" ");
+                	    		 constfound.setConstSignature(parametersplitinparts[0], parametersplitinparts[1]);
+                	    		     ((Classcode) arg).setDependancy(parametersplitinparts[0]);
+                	    			// System.out.println(((Classcode) arg).getDependancy());
+                	    			 ((Classcode) arg).setClassConstructor(constfound);
+                	    		 }
+                	     }
+                	    		
+                	    	 for(Pair<String, String> i:constfound.getConstSignature())
+                	    	 {
+                	    	 //System.out.println(i.a+"*"+i.b);
+                	    	 }              	    	 
+                	    	                   	    		 
+                       	   ((Classcode) arg).setClassConstructor(constfound);
+               	    		
+                       	  for(Constructor i :((Classcode) arg).getClassConstructor() )
+                  	     {
+                  	    	 System.out.println(i.getConstName());
+                  	     }
+                       	    
+                       	     
+                	    	 
                    super.visit(n, arg);
-             	}
+             	}                   
+           
+             
+             
            }.visit(cu, listofclassesandinterfaces);
+           
+           
            
           System.out.println(); // empty line
      // } 
