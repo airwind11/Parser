@@ -9,12 +9,24 @@ public class Classcode {
 	private ArrayList<Attribute> classAttribute = new ArrayList();
 	private ArrayList<Method> classMethod = new ArrayList();
 	private HashMap<String,String> associationwithclassorinterface = new HashMap();
-	
 	private String classModifier;
 	private String extendsclass;
 	private ArrayList<String> implementsclass = new ArrayList();
-
+	private ArrayList<String> dependancy = new ArrayList() ;
 	
+	public ArrayList<String> getDependancy() {
+		return dependancy;
+	}
+
+	public void setDependancy(ArrayList<String> dependancy) {
+		this.dependancy = dependancy;
+	}
+	
+	public void setDependancy(String dependancy) {
+		this.dependancy.add(dependancy);
+	}
+	
+
 	public HashMap<String,String> getAssociationwithclassorinterface() {
 		return associationwithclassorinterface;
 	}

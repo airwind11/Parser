@@ -9,19 +9,20 @@ public class Interfacecode {
 	private String interfaceName;
 	private HashMap<String,String> associationwithclassorinterface = new HashMap();
 	private ArrayList<Attribute> interfaceAttribute = new ArrayList();
-	private ArrayList<String> dependancy = new ArrayList() ;
 	private ArrayList<Method> interfaceMethod = new ArrayList();
 	private ArrayList<String> extendsInterface = new ArrayList();
+	private ArrayList<String> dependancy = new ArrayList() ;
 	
-	
-
-
 	public ArrayList<String> getDependancy() {
 		return dependancy;
 	}
 
 	public void setDependancy(ArrayList<String> dependancy) {
 		this.dependancy = dependancy;
+	}
+	
+	public void setDependancy(String dependancy) {
+		this.dependancy.add(dependancy);
 	}
 
 	public HashMap<String, String> getAssociationwithclassorinterface() {

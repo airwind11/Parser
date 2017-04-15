@@ -5,12 +5,13 @@ import java.util.EnumSet;
 import java.util.HashMap;
 
 import com.github.javaparser.ast.Modifier;
+import com.github.javaparser.utils.Pair;
 
 public class Method {
 	
 	private String methodName;
 	private String returnType;
-	private String methodSignature;
+	private ArrayList<Pair<String,String>> methodSignature = new ArrayList();
 	private EnumSet<Modifier> methodModifier;
 	private Boolean staticYN = false;
 	private Boolean hasget = false;
@@ -64,17 +65,24 @@ public class Method {
 		return returnType;
 	}
 
+	public ArrayList<Pair<String, String>> getMethodSignature() {
+		return methodSignature;
+	}
+
+	public void setMethodSignature(ArrayList<Pair<String, String>> methodSignature) {
+		this.methodSignature = methodSignature;
+	}
+	
+	public void setMethodSignature(String parameterType, String variableName) {
+		Pair<String,String> signatureparts = new Pair(parameterType,variableName);
+		methodSignature.add(signatureparts);
+	}
+
 	public void setReturnType(String returnType) {
 		this.returnType = returnType;
 	}
 
-	public String getMethodSignature() {
-		return methodSignature;
-	}
 
-	public void setMethodSignature(String methodSignature) {
-		this.methodSignature = methodSignature;
-	}
 
 	public EnumSet<Modifier> getMethodModifier() {
 		return methodModifier;

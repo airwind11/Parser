@@ -7,11 +7,11 @@ class ClassA extends Police {
     private Collection<B> b;
     String test ; // package scope
 
-    public String getMessage() {
+    public String getMessage(String msg , ClassA ferf) {
         return this.message ;
     }
 
-    public void setMessage( String msg ) {
+    public void setMessage( String msg , ClassA ferf) {
         this.message = msg ;
     }
 
