@@ -1,8 +1,11 @@
 package cmpe202;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +29,32 @@ public class Parser {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
+		String path = args[1];
 		Output listofclassesandinterfaces = new Output() ;
 		
+		File dir = new File(path);
+		File[] files = dir.listFiles();
 		
-		CompilationUnit cu = JavaParser.parse(new FileInputStream("C:/Parser/TestFiles/classb.java"));
+		for(File sd :files)
+		{
+			if(sd.toString().endsWith("java"))
+			{
+				CompilationUnit cu = JavaParser.parse(new FileInputStream(sd));
+				ParserEngine.readfile(cu,listofclassesandinterfaces);
+			}
+			
+		}
 		
-		ParserEngine.readfile(cu,listofclassesandinterfaces);
 		
-		
+		for(Classcode asd :listofclassesandinterfaces.getAllclasses().values())
+		{
+			//System.out.println(asd.getClassName());
+		}
 	
+		for(Interfacecode asd :listofclassesandinterfaces.getAllinterfaces().values())
+		{
+			//System.out.println(asd.getInterfaceName());
+		}
+		
 	}
 }

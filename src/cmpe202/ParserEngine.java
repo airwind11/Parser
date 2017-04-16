@@ -49,7 +49,9 @@ public class ParserEngine  {
        	        	interfacefound.setextendsInterface(d.getNameAsString());;
        	        
        	         for (String m : interfacefound.getextendsInterface())
+       	         {
        	        	 //System.out.println(" * " + m);
+       	         }
        	         
        	         ((Output) arg).setAllinterfaces(n.getNameAsString(),interfacefound);
        	 
@@ -367,7 +369,7 @@ public class ParserEngine  {
            
            modifybasedonGetterandSetter(listofclassesandinterfaces);
            
-          System.out.println(); // empty line
+          //System.out.println(); // empty line
      // } 
 	//catch ( Exception e) {
     //     new RuntimeException(e);
