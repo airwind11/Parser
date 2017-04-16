@@ -63,7 +63,7 @@ public class ParserEngine  {
         		{
         			Classcode classfound = new Classcode();
         			classfound.setClassName(n.getNameAsString());
-        			 //System.out.println(" * " + classfound.getClassName());
+        			// System.out.println(" * " + classfound.getClassName());
         			classfound.setClassModifier(n.getModifiers().toString());
         			//System.out.println(" * " + classfound.getClassModifier());
         			
@@ -81,10 +81,15 @@ public class ParserEngine  {
         	          classfound.setImplementsclass(d.getNameAsString()); 
         	         
         	         for (String m : classfound.getImplementsclass())
+        	         {
         	        	 //System.out.println(" * " + m);
+        	         }
            	          
-        	        
+        	        	//System.out.println(n.getNameAsString());
         			((Output) arg).setAllclasses(n.getNameAsString(),classfound);
+        	       
+        	         
+        	        // System.out.println(((Output) arg).getAllclasses());
         	
         			 super.visit(n, classfound);     		        			         			
         		}
@@ -211,15 +216,15 @@ public class ParserEngine  {
             		
             		if(po.size()>1)
             		{
-            			System.out.println(po.get(1));
-            			System.out.println(po.get(1) instanceof PrimitiveType);
+            			//System.out.println(po.get(1));
+            			//System.out.println(po.get(1) instanceof PrimitiveType);
             			if(arg instanceof Classcode)
             				 	{
             				//if(!((po.get(1) instanceof PrimitiveType) || po.get(1).toString().equalsIgnoreCase("string")))
             				//{
             						((Classcode) arg).setAssociationwithclassorinterface(po.get(1).toString(),"multiple");
             						attributefound.setMultiplicity("multiple");
-            						System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
+            						//System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
             				 //	}
             				 	}
                 		
@@ -360,7 +365,7 @@ public class ParserEngine  {
              
            }.visit(cu, listofclassesandinterfaces);
            
-           
+           modifybasedonGetterandSetter(listofclassesandinterfaces);
            
           System.out.println(); // empty line
      // } 
@@ -369,4 +374,63 @@ public class ParserEngine  {
     //  }
        
 	}
+	
+	public static void modifybasedonGetterandSetter(Output listofclassesandinterfaces){
+			
+		for(Classcode classobjects : listofclassesandinterfaces.getAllclasses().values())
+		{
+			
+			for (Method sd :classobjects.getClassMethod())
+			{
+								
+				if(sd.getHasget())
+				{
+					for(Method sd1 :classobjects.getClassMethod())
+					{						
+						if(sd1.getHasset())
+						{
+							if(sd.getShortName().equalsIgnoreCase(sd1.getShortName()))
+							{
+								sd.setIncludedinUML(false);
+								sd1.setIncludedinUML(false);
+								
+								for(Attribute df :classobjects.getClassAttribute())
+								{
+									
+									if(df.getAttributeName().equalsIgnoreCase(sd.getShortName()))
+									{
+										EnumSet<Modifier> newmod =EnumSet.noneOf(Modifier.class);
+										
+										for(Modifier mod:df.getAttributeModifier())
+										{
+											
+																													
+											if(mod.toString().equalsIgnoreCase("private"))
+											{
+												newmod.add(Modifier.PUBLIC);
+											}
+											else 
+											{
+												newmod.add(mod);
+											}
+											
+										}
+										df.setAttributeModifier(newmod);
+										System.out.println(df.getAttributeModifier());
+									}
+								}
+							}
+							
+							
+						}
+						
+					}
+				}
+				
+			}
+		}
+		
+	}
+	
+	
 }

@@ -15,10 +15,15 @@ public class Classcode {
 	private ArrayList<String> implementsclass = new ArrayList();
 	private ArrayList<String> dependancy = new ArrayList() ;
 	
+	
+	
+	
 	public ArrayList<String> getDependancy() {
 		return dependancy;
 	}
 
+	
+	
 	public void setDependancy(ArrayList<String> dependancy) {
 		this.dependancy = dependancy;
 	}
