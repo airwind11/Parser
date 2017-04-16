@@ -21,7 +21,9 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.type.ArrayType;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.PrimitiveType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.utils.Pair;
 
@@ -158,7 +160,7 @@ public class ParserEngine  {
         	     
         	     for(Method i :((Classcode) arg).getClassMethod() )
         	     {
-        	    	 System.out.println(i.getMethodName());
+        	    	// System.out.println(i.getMethodName());
         	     }
         	     
         	     
@@ -175,6 +177,7 @@ public class ParserEngine  {
                  public void visit(FieldDeclaration n, Object arg) 
             {
             	Attribute attributefound = new Attribute();
+            	
             	attributefound.setAttributeType(n.getElementType().toString());
             	//System.out.println(attributefound.getAttributeType());
             	EnumSet<Modifier> modifierList = n.getModifiers();
@@ -189,9 +192,17 @@ public class ParserEngine  {
             	if((n.getElementType().getMetaModel().toString().equals("ClassOrInterfaceType")) && (!attributefound.getAttributeType().equals("String")))
             	{
             		attributefound.setPrimitiveType(false);
+                        	}
+            	//
+            	//System.out.println(n.getCommonType() instanceof ArrayType);
+            	if(n.getCommonType() instanceof ArrayType) 
+            	{
+            		
+            		
+            		attributefound.setMultiplicity("multiple");
             	}
-            	
             	//System.out.println(attributefound.getPrimitiveType());
+            	
             	
             	if(!attributefound.getPrimitiveType())
             	{
@@ -200,34 +211,46 @@ public class ParserEngine  {
             		
             		if(po.size()>1)
             		{
-            			//System.out.println(po.get(1));
+            			System.out.println(po.get(1));
+            			System.out.println(po.get(1) instanceof PrimitiveType);
             			if(arg instanceof Classcode)
             				 	{
+            				//if(!((po.get(1) instanceof PrimitiveType) || po.get(1).toString().equalsIgnoreCase("string")))
+            				//{
             						((Classcode) arg).setAssociationwithclassorinterface(po.get(1).toString(),"multiple");
-            						//System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
+            						attributefound.setMultiplicity("multiple");
+            						System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
+            				 //	}
             				 	}
+                		
             					else
             					{
+            						//if(!((po.get(1) instanceof PrimitiveType) || po.get(1).toString().equalsIgnoreCase("string")))
             						((Interfacecode) arg).setAssociationwithclassorinterface(po.get(1).toString(),"multiple");
+            						attributefound.setMultiplicity("multiple");
             						//System.out.println(((Interfacecode) arg).getAssociationwithclassorinterface());
             					}           				
-            				}
-            			
+            		}
             		
             		else
             		{
             			if(arg instanceof Classcode)
        				 		{
+            				
             					((Classcode) arg).setAssociationwithclassorinterface(po.get(0).toString(),"single");
             					//System.out.println(((Classcode) arg).getAssociationwithclassorinterface());
        				 		}
             			else
        						{
+            				
        							((Interfacecode) arg).setAssociationwithclassorinterface(po.get(0).toString(),"single");
+       							
        							//System.out.println(((Interfacecode) arg).getAssociationwithclassorinterface());
        				       	}
             		}
-            	}
+            		}
+            	
+            	//System.out.println(attributefound.getMultiplicity());
             		
             		//System.out.println(attributefound.getAssociationwithclassorinterface());
             		//System.out.println(attributefound.getMultiplicity());
@@ -293,10 +316,10 @@ public class ParserEngine  {
                   public void visit(ConstructorDeclaration n, Object arg) {
             	 	Constructor constfound = new Constructor();
             	 	constfound.setConstName(n.getNameAsString());
-            	 	System.out.println(constfound.getConstName());
+            	 	//System.out.println(constfound.getConstName());
             	
             	constfound.setConstModifier(n.getModifiers());
-            	System.out.println(constfound.getConstModifier());
+            	//System.out.println(constfound.getConstModifier());
             	 
             	
             	 
@@ -325,7 +348,7 @@ public class ParserEngine  {
                	    		
                        	  for(Constructor i :((Classcode) arg).getClassConstructor() )
                   	     {
-                  	    	 System.out.println(i.getConstName());
+                  	    	 //System.out.println(i.getConstName());
                   	     }
                        	    
                        	     

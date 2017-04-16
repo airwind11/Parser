@@ -2,9 +2,11 @@ class ClassA extends Police {
 
     private String message ; // public attribute via setters and getters
     private String bark ;
-    protected String foo ;
+    protected String[] foo ;
+    private ArrayList<String> dsf;
+    private int[] ff;
     protected String bar ;
-    private Collection<B> b;
+    private Collection<String> b;
     String test ; // package scope
 
     public ClassA(String msg , ClassA ferf)
