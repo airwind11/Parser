@@ -26,11 +26,16 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import cmpe202.ParserEngine;
 
 public class Parser {
+	public static final String filename = "IntermediateforUMLGraph.txt";
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		String path = args[1];
+		
+		
 		Output listofclassesandinterfaces = new Output() ;
+		
+		
 		
 		File dir = new File(path);
 		File[] files = dir.listFiles();
@@ -48,13 +53,16 @@ public class Parser {
 		
 		for(Classcode asd :listofclassesandinterfaces.getAllclasses().values())
 		{
-			System.out.println(asd.getClassName());
+			//System.out.println(asd.getClassName());
 		}
 	
 		for(Interfacecode asd :listofclassesandinterfaces.getAllinterfaces().values())
 		{
-			System.out.println(asd.getInterfaceName());
+			//System.out.println(asd.getInterfaceName());
 		}
+		
+		IntermediateUML.intermediatefilecreator(args[2], listofclassesandinterfaces);
+		
 		
 	}
 }

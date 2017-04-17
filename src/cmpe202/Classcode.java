@@ -10,8 +10,8 @@ public class Classcode {
 	private ArrayList<Method> classMethod = new ArrayList();
 	private ArrayList<Constructor> classConstructor = new ArrayList();
 	private HashMap<String,String> associationwithclassorinterface = new HashMap();
-	private String classModifier;
-	private String extendsclass;
+	private String classModifier="";
+	private String extendsclass ="";
 	private ArrayList<String> implementsclass = new ArrayList();
 	private ArrayList<String> dependancy = new ArrayList() ;
 	
