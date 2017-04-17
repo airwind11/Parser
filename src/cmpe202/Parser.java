@@ -48,12 +48,12 @@ public class Parser {
 		
 		for(Classcode asd :listofclassesandinterfaces.getAllclasses().values())
 		{
-			//System.out.println(asd.getClassName());
+			System.out.println(asd.getClassName());
 		}
 	
 		for(Interfacecode asd :listofclassesandinterfaces.getAllinterfaces().values())
 		{
-			//System.out.println(asd.getInterfaceName());
+			System.out.println(asd.getInterfaceName());
 		}
 		
 	}
