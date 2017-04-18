@@ -338,7 +338,7 @@ public class ParserEngine  {
                 	    		 constfound.setConstSignature(parametersplitinparts[0], parametersplitinparts[1]);
                 	    		     ((Classcode) arg).setDependancy(parametersplitinparts[0]);
                 	    			// System.out.println(((Classcode) arg).getDependancy());
-                	    			 ((Classcode) arg).setClassConstructor(constfound);
+                	    			 
                 	    		 }
                 	     }
                 	    		
