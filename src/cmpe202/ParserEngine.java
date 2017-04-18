@@ -165,11 +165,7 @@ public class ParserEngine  {
 	    			 ((Interfacecode) arg).setInterfaceMethod(methodfound);
 	    		 }
         	     
-        	     for(Method i :((Classcode) arg).getClassMethod() )
-        	     {
-        	    	// System.out.println(i.getMethodName());
-        	     }
-        	     
+        	  
         	     
         	     
         	     //System.out.println();
