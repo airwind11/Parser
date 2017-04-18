@@ -13,7 +13,6 @@ public class Method {
 	private String returnType;
 	private ArrayList<Pair<String,String>> methodSignature = new ArrayList();
 	private EnumSet<Modifier> methodModifier;
-	private Boolean staticYN = false;
 	private Boolean hasget = false;
 	private Boolean hasset = false;
 	private Boolean includedinUML = true;
@@ -92,13 +91,7 @@ public class Method {
 		this.methodModifier = methodModifier;
 	}
 
-	public Boolean getStaticYN() {
-		return staticYN;
-	}
-
-	public void setStaticYN(Boolean staticYN) {
-		this.staticYN = staticYN;
-	}
+	
 
 	
 	
