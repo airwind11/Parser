@@ -258,27 +258,7 @@ public class ParserEngine  {
             		//System.out.println(attributefound.getAssociationwithclassorinterface());
             		//System.out.println(attributefound.getMultiplicity());
             		
-            	/*	
-            	 for(Node w:n.getChildNodes())
-            	{
-            		//System.out.println(w);
-            		 System.out.println(n.getElementType().getChildNodes());
-            		System.out.println(w.getChildNodes());
-            		//System.out.println(w.get);
-            	     //System.out.println(w.getMetaModel());
-            		
-            	}
-           
-            	 for(Node w:n.getElementType().getChildNodes())
-             	{
-             		 //System.out.println(w);
-             		 //System.out.println(n.getElementType().getChildNodes());
-             		//System.out.println(w.getChildNodes());
-             		//System.out.println(w.get);
-             	     //System.out.println(w.getMetaModel());
-             		
-             	}
-             	*/
+            
              	 
             	 
             	
