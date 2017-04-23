@@ -369,20 +369,17 @@ public class ParserEngine  {
 						{
 							if(sd.getShortName().equalsIgnoreCase(sd1.getShortName()))
 							{
-								sd.setIncludedinUML(false);
-								sd1.setIncludedinUML(false);
-								
+																
 								for(Attribute df :classobjects.getClassAttribute())
 								{
 									
 									if(df.getAttributeName().equalsIgnoreCase(sd.getShortName()))
 									{
 										EnumSet<Modifier> newmod =EnumSet.noneOf(Modifier.class);
-										
+																		
 										for(Modifier mod:df.getAttributeModifier())
 										{
-											
-																													
+																												
 											if(mod.toString().equalsIgnoreCase("private"))
 											{
 												newmod.add(Modifier.PUBLIC);
@@ -393,8 +390,11 @@ public class ParserEngine  {
 											}
 											
 										}
+										sd.setIncludedinUML(false);
+										sd1.setIncludedinUML(false);
 										df.setAttributeModifier(newmod);
 										System.out.println(df.getAttributeModifier());
+										
 									}
 								}
 							}
