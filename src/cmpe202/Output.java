@@ -9,7 +9,6 @@ public class Output {
 	private HashMap<String,Interfacecode> allinterfaces = new HashMap();
 	
 	
-	
 	public HashMap<String,Classcode> getAllclasses() {
 		return allclasses;
 	}

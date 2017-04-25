@@ -139,7 +139,9 @@ public class ParserEngine  {
         	    		methodfound.setMethodSignature(parametersplitinparts[0], parametersplitinparts[1]);
         	    		 if(arg instanceof Classcode)
         	    		 {
+        	    			 
         	    			 ((Classcode) arg).setDependancy(parametersplitinparts[0]);
+        	    			 
         	    			// System.out.println(((Classcode) arg).getDependancy());
         	    			
         	    		 }

@@ -2,6 +2,7 @@ package cmpe202;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Classcode {
 	
@@ -13,21 +14,20 @@ public class Classcode {
 	private String classModifier="";
 	private String extendsclass ="";
 	private ArrayList<String> implementsclass = new ArrayList();
-	private ArrayList<String> dependancy = new ArrayList() ;
+	private HashSet<String> dependancy = new HashSet() ;
 	
 	
 	
 	
-	public ArrayList<String> getDependancy() {
+	
+	public HashSet<String> getDependancy() {
 		return dependancy;
 	}
 
-	
-	
-	public void setDependancy(ArrayList<String> dependancy) {
+	public void setDependancy(HashSet<String> dependancy) {
 		this.dependancy = dependancy;
 	}
-	
+
 	public ArrayList<Constructor> getClassConstructor() {
 		return classConstructor;
 	}

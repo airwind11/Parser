@@ -4,8 +4,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 import org.umlgraph.doclet.UmlGraph;
 import org.umlgraph.doclet.UmlGraphDoc;
@@ -41,8 +43,157 @@ public class IntermediateUML  {
 		    out = new BufferedWriter(fstream);
 		    out.write("import java.util.*;\n\n");
 		    
+		    for(Interfacecode d :listofclassesandinterfaces.getAllinterfaces().values())
+			{	
+		    	
+		    	out.write("/**\n*/\n\n");
+		    	
+		    	out.write("interface"+" "+d.getInterfaceName()+" " +"{");
+				 
+				  for(Attribute ad :d.getInterfaceAttribute())
+		            {
+		                String modifierwithoutstatic = "";
+		                    for (Modifier sd : ad.getAttributeModifier())
+		                        {
+		                            if(!sd.asString().equalsIgnoreCase("static"))
+		                                {
+		                                    modifierwithoutstatic = sd.asString().toLowerCase();
+		                                }
+		                        }
+		                            out.write(modifierwithoutstatic+" "+ad.getAttributeType());
+		                            if(ad.getPrimitiveType())
+		                            {
+		                                if(ad.getMultiplicity().equalsIgnoreCase("multiple"))
+		                                {
+		                                    out.write("[]");
+		                                }
+		                            }
+
+		                            out.write(" "+ad.getAttributeName()+" "+";"+"\n\n");
+		                        }
+				  
+				     for(Method ad :d.getInterfaceMethod())
+				        {
+				            if(ad.getIncludedinUML())
+				            {
+				                String modifierwithoutstatic = "";
+				                    for (Modifier sd : ad.getMethodModifier())
+				                        {
+				                            if(!sd.asString().equalsIgnoreCase("static"))
+				                                {
+				                                    modifierwithoutstatic = sd.asString().toLowerCase();
+				                                    }
+				                        }
+				                    out.write(modifierwithoutstatic+" "+" "+ad.getReturnType()
+				                    +" "+ad.getMethodName()+"(");
+				                    int k =1;
+				                    for(Pair<String, String> sdf :ad.getMethodSignature())
+				                    {
+				                        out.write(sdf.a+" "+sdf.b);
+				                        if(k<ad.getMethodSignature().size())
+				                        {
+				                            out.write(",");
+				                        }
+				                        k=k+1;
+				                    }
+				                    out.write(");\n\n");
+
+				            }
+
+				        }
+				 
+			
+
+              out.write(" "+ "}"+"\n\n");
+				
+			}
+		    HashSet<String> alreadychecked = new HashSet();
 			for(Classcode d :listofclassesandinterfaces.getAllclasses().values())
 			{
+			alreadychecked.add(d.getClassName());
+				
+				out.write("/**\n");
+				if(d.getDependancy().size()>0)
+				{
+					
+					
+					for(String retq:d.getDependancy())
+					{
+						if(listofclassesandinterfaces.getAllinterfaces().containsKey(retq))
+						{
+						out.write("* @depend - - - "+retq+"\n");
+						}
+					}
+					
+					
+				}
+				
+if(d.getAssociationwithclassorinterface().size()>0)
+	{
+	
+		for(String asd : d.getAssociationwithclassorinterface().keySet())
+			{
+			
+			if(!alreadychecked.contains(asd))
+			{
+				alreadychecked.add(asd);
+				out.write("* @assoc ");
+			if(listofclassesandinterfaces.getAllclasses().containsKey(asd))
+			{
+				
+				for(String asdf:listofclassesandinterfaces.getAllclasses().get(asd).getAssociationwithclassorinterface().keySet())
+				{
+					if(asdf.equals(d.getClassName()))
+					{
+						if(listofclassesandinterfaces.getAllclasses().get(asd).getAssociationwithclassorinterface().get(asdf).equalsIgnoreCase("single"))
+						out.write("0..1 - ");
+						else
+						out.write("* - ");	
+					}
+				}			
+			}
+			else if(listofclassesandinterfaces.getAllinterfaces().containsKey(asd))
+			{
+				System.out.println("here");
+				for(String asdf:listofclassesandinterfaces.getAllinterfaces().get(asd).getAssociationwithclassorinterface().keySet())
+				{
+					if(asdf.equals(d.getClassName()))
+					{
+						if(listofclassesandinterfaces.getAllinterfaces().get(asd).getAssociationwithclassorinterface().get(asdf).equalsIgnoreCase("single"))
+						{
+						out.write("0..1 - ");
+						}
+						else
+						{
+						out.write("* - ");
+						}
+					}
+				}		
+			}
+			else
+			{
+				System.out.println("here");
+				out.write("- - ");
+			}
+			if(d.getAssociationwithclassorinterface().get(asd).equalsIgnoreCase("single"))
+			{
+			out.write("  0..1 "+asd+"\n");
+			}
+			else
+			{
+				out.write(" * "+asd+"\n");
+			}
+			}
+			
+			}
+		
+		
+					
+	}
+				
+				out.write("*/\n\n");
+				
+				
 									
 			out.write(d.getClassModifier().substring(1, (d.getClassModifier().length()-1)).toLowerCase()+" "+
 						"class"+" "+d.getClassName()+" ");
@@ -159,68 +310,7 @@ public class IntermediateUML  {
 			}
 			
 			
-			for(Interfacecode d :listofclassesandinterfaces.getAllinterfaces().values())
-			{	
 			
-				 out.write("interface"+" "+d.getInterfaceName()+" " +"{");
-				 
-				  for(Attribute ad :d.getInterfaceAttribute())
-		            {
-		                String modifierwithoutstatic = "";
-		                    for (Modifier sd : ad.getAttributeModifier())
-		                        {
-		                            if(!sd.asString().equalsIgnoreCase("static"))
-		                                {
-		                                    modifierwithoutstatic = sd.asString().toLowerCase();
-		                                }
-		                        }
-		                            out.write(modifierwithoutstatic+" "+ad.getAttributeType());
-		                            if(ad.getPrimitiveType())
-		                            {
-		                                if(ad.getMultiplicity().equalsIgnoreCase("multiple"))
-		                                {
-		                                    out.write("[]");
-		                                }
-		                            }
-
-		                            out.write(" "+ad.getAttributeName()+" "+";"+"\n\n");
-		                        }
-				  
-				     for(Method ad :d.getInterfaceMethod())
-				        {
-				            if(ad.getIncludedinUML())
-				            {
-				                String modifierwithoutstatic = "";
-				                    for (Modifier sd : ad.getMethodModifier())
-				                        {
-				                            if(!sd.asString().equalsIgnoreCase("static"))
-				                                {
-				                                    modifierwithoutstatic = sd.asString().toLowerCase();
-				                                    }
-				                        }
-				                    out.write(modifierwithoutstatic+" "+" "+ad.getReturnType()
-				                    +" "+ad.getMethodName()+"(");
-				                    int k =1;
-				                    for(Pair<String, String> sdf :ad.getMethodSignature())
-				                    {
-				                        out.write(sdf.a+" "+sdf.b);
-				                        if(k<ad.getMethodSignature().size())
-				                        {
-				                            out.write(",");
-				                        }
-				                        k=k+1;
-				                    }
-				                    out.write(");\n\n");
-
-				            }
-
-				        }
-				 
-			
-
-              out.write(" "+ "}"+"\n\n");
-				
-			}
 			
 			
 			 out.close();
@@ -232,8 +322,6 @@ public class IntermediateUML  {
 		}
 		
 		
-		
-//	UmlGraph.buildGraph(as, null, path);
 		
 		
 		return null;
