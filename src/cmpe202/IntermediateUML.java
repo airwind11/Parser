@@ -140,7 +140,8 @@ if(d.getAssociationwithclassorinterface().size()>0)
 				out.write("* @assoc ");
 			if(listofclassesandinterfaces.getAllclasses().containsKey(asd))
 			{
-				
+				if(listofclassesandinterfaces.getAllclasses().get(asd).getAssociationwithclassorinterface().size()>0)
+				{
 				for(String asdf:listofclassesandinterfaces.getAllclasses().get(asd).getAssociationwithclassorinterface().keySet())
 				{
 					if(asdf.equals(d.getClassName()))
@@ -150,15 +151,25 @@ if(d.getAssociationwithclassorinterface().size()>0)
 						else
 						out.write("* - ");	
 					}
-				}			
+				}
+				}
+				else
+				{
+					out.write(" - - ");
+				}
+				
 			}
+			
 			else if(listofclassesandinterfaces.getAllinterfaces().containsKey(asd))
 			{
-				System.out.println("here");
+				
+				if(listofclassesandinterfaces.getAllinterfaces().get(asd).getAssociationwithclassorinterface().size()>0)
+				{
 				for(String asdf:listofclassesandinterfaces.getAllinterfaces().get(asd).getAssociationwithclassorinterface().keySet())
 				{
-					if(asdf.equals(d.getClassName()))
+				if(asdf.equals(d.getClassName()))
 					{
+						
 						if(listofclassesandinterfaces.getAllinterfaces().get(asd).getAssociationwithclassorinterface().get(asdf).equalsIgnoreCase("single"))
 						{
 						out.write("0..1 - ");
@@ -168,13 +179,14 @@ if(d.getAssociationwithclassorinterface().size()>0)
 						out.write("* - ");
 						}
 					}
-				}		
-			}
-			else
-			{
-				System.out.println("here");
-				out.write("- - ");
-			}
+					
+					}
+				}
+				else
+				{
+					out.write(" - - ");
+				}
+				}
 			if(d.getAssociationwithclassorinterface().get(asd).equalsIgnoreCase("single"))
 			{
 			out.write("  0..1 "+asd+"\n");
@@ -183,18 +195,16 @@ if(d.getAssociationwithclassorinterface().size()>0)
 			{
 				out.write(" * "+asd+"\n");
 			}
+				
+			}
+			
+			
 			}
 			
 			}
 		
-		
-					
-	}
-				
 				out.write("*/\n\n");
-				
-				
-									
+						
 			out.write(d.getClassModifier().substring(1, (d.getClassModifier().length()-1)).toLowerCase()+" "+
 						"class"+" "+d.getClassName()+" ");
 			
@@ -300,19 +310,11 @@ if(d.getAssociationwithclassorinterface().size()>0)
 						k=k+1;
 					}
 					out.write(");\n\n");
-					
-			
-
 		}
 		out.write("}"+"\n\n");
-		
-		
+	
 			}
-			
-			
-			
-			
-			
+
 			 out.close();
 		  
 		}
@@ -320,10 +322,7 @@ if(d.getAssociationwithclassorinterface().size()>0)
 		{
 		    System.err.println("Error: " + e.getMessage());
 		}
-		
-		
-		
-		
+
 		return null;
 		
 	}
