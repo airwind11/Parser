@@ -11,7 +11,7 @@ public aspect Sequence {
       ArrayList<String> messages = new ArrayList<String>();
      StringBuilder Messagewrite = new StringBuilder() ;
 
-      before() : execution(public static void main(..)) || (!within(Sequence) &&
+      before() : (!within(Sequence) &&
               call(* *.*(..)) &&
               !call(* java..*.*(..)) &&
               !cflow(execution(*.new(..))))  {
